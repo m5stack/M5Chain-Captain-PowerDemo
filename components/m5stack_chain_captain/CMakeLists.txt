@@ -1,0 +1,22 @@
+idf_component_register(
+    SRCS 
+        "m5stack_chain_captain.cpp"
+    INCLUDE_DIRS 
+        "include"
+    PRIV_INCLUDE_DIRS 
+        "priv_include"
+    REQUIRES
+        esp_driver_i2s
+        esp_driver_gpio
+        esp_timer
+        esp_driver_i2c
+        esp_driver_spi
+        esp_driver_ledc
+        esp_codec_dev
+        esp_lvgl_port
+        lvgl__lvgl
+        m5stack__m5pm1
+        m5stack__m5ioe1
+    PRIV_REQUIRES
+        esp_lcd
+)

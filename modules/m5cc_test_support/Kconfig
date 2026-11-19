@@ -1,0 +1,118 @@
+menu "M5CC Power Test"
+
+    config M5CC_TEST_ID
+        string "Test identifier"
+        default "unset"
+        help
+            Matches the tests/<name> directory and the test_id field in TEST_START.
+            Every test project overrides this value in its sdkconfig.defaults.
+
+    config M5CC_CONFIG_ID
+        string "Configuration identifier"
+        default "unset"
+        help
+            Hashed into config_hash so that a measurement can be tied to the exact
+            build configuration that produced it.
+
+    config M5CC_IMU_WAKE_PROFILE
+        int "IMU wake sensor profile (0=low_power, 1=reference)"
+        range 0 1
+        default 0
+        help
+            Only used by tests/imu_wake_l1 and tests/imu_wake_l2. Both profiles are
+            built from the same sources; switch with an SDKCONFIG_DEFAULTS override.
+
+    choice M5CC_IMU_ACCEL_ODR
+        prompt "Accelerometer ODR for the low-power IMU wake profile"
+        default M5CC_IMU_ODR_50HZ
+        help
+            Sets the accelerometer output data rate used when the IMU is armed for
+            any-motion wake (tests/imu_wake_l1 and tests/imu_wake_l2, low_power
+            profile). 50 Hz matches the any-motion feature sampling and is the
+            default; the lower rates trade wake-up responsiveness for current and
+            exist so that the same firmware can measure both ends of the range.
+            The any-motion duration is NOT rescaled, so the effective detection
+            time grows as the ODR drops.
+
+        config M5CC_IMU_ODR_0_78HZ
+            bool "0.78 Hz (lowest supported, wake-up may not trigger)"
+
+        config M5CC_IMU_ODR_1_5HZ
+            bool "1.5 Hz"
+
+        config M5CC_IMU_ODR_3_1HZ
+            bool "3.1 Hz"
+
+        config M5CC_IMU_ODR_6_25HZ
+            bool "6.25 Hz"
+
+        config M5CC_IMU_ODR_12_5HZ
+            bool "12.5 Hz"
+
+        config M5CC_IMU_ODR_25HZ
+            bool "25 Hz"
+
+        config M5CC_IMU_ODR_50HZ
+            bool "50 Hz (matches any-motion feature sampling)"
+
+    endchoice
+
+    config M5CC_FULL_LOAD_SAFETY_ACK
+        bool "Full-load safety review acknowledged"
+        default n
+        help
+            tests/full_load refuses to load audio, RGB and continuous display refresh
+            unless this option is set. Enable only after the fixture current limit,
+            thermal limit and stop procedure have been reviewed.
+
+    config M5CC_FULL_LOAD_MAX_SECONDS
+        int "Full-load maximum runtime before automatic de-load"
+        range 60 3600
+        default 600
+
+    config M5CC_BACKLIGHT_PERCENT
+        int "Static display backlight level (percent)"
+        range 0 100
+        default 50
+        help
+            Only used by tests/backlight_levels. The three measurement points are
+            selected with sdkconfig.backlight-0/50/100.defaults; the base default
+            keeps a valid build without an override.
+
+    config M5CC_L0_KEEP_CHARGE_EN
+        bool "Experiment: leave the charger enabled in L0"
+        default n
+        help
+            Diagnostic build only. The normal L0 sequence verifies that
+            CHG_EN/BOOST_EN/LED_EN are all zero before shutdown. Enabling this
+            re-arms the charger as the last PMIC write before shutdown so that the
+            L0 current with an enabled charger can be measured.
+
+
+
+
+
+
+
+
+    config M5CC_WIFI_SSID
+        string "Controlled test AP SSID"
+        default ""
+        help
+            Phase 2 only. Keep empty in committed sdkconfig.defaults; set the real
+            value in a local sdkconfig so credentials never enter version control.
+
+    config M5CC_WIFI_PASSWORD
+        string "Controlled test AP password"
+        default ""
+
+    config M5CC_WIFI_TARGET_IPV4
+        string "Periodic ICMP target IPv4 address"
+        default ""
+
+    config M5CC_WIFI_LISTEN_INTERVAL
+        int "MAX_MODEM listen interval in beacon periods"
+        range 1 10
+        default 3
+
+endmenu

@@ -1,0 +1,30 @@
+# ESP-IDF 5.5.5 defaults for the C160 Chain Captain full-load power test.
+CONFIG_IDF_TARGET="esp32s3"
+# USB Type-C is the only console connection on the DUT, so make USB Serial/JTAG
+# the primary console instead of the IDF default (UART0 + USB as secondary):
+# the secondary path drops the tail of the last line before the firmware parks.
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+# CONFIG_ESP_CONSOLE_UART_DEFAULT is not set
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_ESPTOOLPY_HEADER_FLASHSIZE_UPDATE=y
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_USE_MALLOC=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=10240
+CONFIG_COMPILER_WARN_WRITE_STRINGS=y
+CONFIG_COMPILER_CXX_EXCEPTIONS=n
+CONFIG_COMPILER_CXX_RTTI=n
+# LVGL: Kconfig-driven configuration, matching the validated factory firmware.
+CONFIG_LV_CONF_SKIP=y
+CONFIG_LV_MEM_SIZE_KILOBYTES=64
+# The vendored LVGL snapshot has no demos/ directory; its Kconfig default is y.
+# CONFIG_LV_BUILD_DEMOS is not set
+CONFIG_M5CC_TEST_ID="full-load"
+CONFIG_M5CC_CONFIG_ID="full-load"
+CONFIG_M5CC_FULL_LOAD_MAX_SECONDS=600
+# Safety gate stays closed by default: enable CONFIG_M5CC_FULL_LOAD_SAFETY_ACK
+# only after the fixture current limit, thermal limit and stop procedure are
+# reviewed (sdkconfig.safety-ack.defaults does exactly that).
+# CONFIG_M5CC_FULL_LOAD_SAFETY_ACK is not set

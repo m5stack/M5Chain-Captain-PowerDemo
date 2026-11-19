@@ -1,0 +1,3 @@
+# Variant: reference sensor load (accelerometer + gyroscope, 100 Hz).
+CONFIG_M5CC_IMU_WAKE_PROFILE=1
+CONFIG_M5CC_CONFIG_ID="imu-wake-l1-reference"

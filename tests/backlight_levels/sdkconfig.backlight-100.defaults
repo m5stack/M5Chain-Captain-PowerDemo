@@ -1,0 +1,3 @@
+# Measurement point: static frame with the backlight at 100 %.
+CONFIG_M5CC_BACKLIGHT_PERCENT=100
+CONFIG_M5CC_CONFIG_ID="backlight-100"

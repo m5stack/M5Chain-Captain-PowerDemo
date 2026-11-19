@@ -1,0 +1,10 @@
+description: Board Support Package (BSP) for M5Stack Chain Head
+repository: git://github.com/espressif/esp-bsp.git
+tags:
+- bsp
+- M5Stack
+targets:
+- esp32s3
+url: https://github.com/espressif/esp-bsp/tree/master/bsp/m5stack_chain_captain
+version: 0.0.1
+

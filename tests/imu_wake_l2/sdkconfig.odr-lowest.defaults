@@ -1,0 +1,4 @@
+# Lowest accelerometer ODR for the IMU wake profile (0.78 Hz).
+# Used to measure the low end of the ODR range; any-motion wake-up is not
+# guaranteed to trigger at this rate because duration is not rescaled.
+CONFIG_M5CC_IMU_ODR_0_78HZ=y

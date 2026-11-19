@@ -1,0 +1,3 @@
+# Enables the full-load safety gate. Use together with sdkconfig.defaults:
+#   $env:SDKCONFIG_DEFAULTS = "sdkconfig.defaults;sdkconfig.safety-ack.defaults"
+CONFIG_M5CC_FULL_LOAD_SAFETY_ACK=y

@@ -1,0 +1,2 @@
+# Experiment: L0 with the charger left enabled (default L0 keeps CHG_EN=0).
+CONFIG_M5CC_L0_KEEP_CHARGE_EN=y

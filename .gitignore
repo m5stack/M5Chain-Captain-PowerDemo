@@ -59,3 +59,18 @@ bin/
 obj/
 
 *.code-workspace
+
+# ESP-IDF build artifacts and per-project configuration
+build/
+sdkconfig
+sdkconfig.old
+dependencies.lock
+*.bin
+*.elf
+*.map
+*.dfu
+
+# Local Wi-Fi credentials: never commit a file containing a real SSID/password.
+sdkconfig.local
+sdkconfig.local.defaults
+sdkconfig.wifi-local.defaults
